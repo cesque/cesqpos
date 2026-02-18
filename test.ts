@@ -1,26 +1,14 @@
 import EscPosUSB from './EscPosUSB.js'
 
-// import wrap from 'word-wrap'
 import {
-    printRasterBitImage,
-    selectBitImageMode,
     cut,
     selectJustification,
     bold,
     selectCharacterSize,
-    underline,
-    selectPageMode,
-    selectPrintDirectionInPageMode,
-    printAndReturnToStandardModeInPageMode,
-    setPrintAreaInPageMode,
-    selectFont,
-    setBarcodeHeight,
-    selectPrintPositionOfBarcodeHriCharacters,
-    selectFontForBarcodeHriCharacters,
+    printAndFeedLines,
 } from './EscPosEncoder.js';
-import { convertImageFromFileToRasterBitImage } from './utils/convertImageToRasterBitImage.js';
-import { text } from './utils/text.js';
-import { printBarcodeUpcA } from './barcodes.js';
+
+import { text } from './utils/text.js'
 
 const vendor = 0x04b8
 const product = 0x0202
@@ -37,12 +25,17 @@ const init = [
 
 const buffer = Buffer.from([
     ...init,
-    LF, LF, LF, LF, LF, LF, LF, LF, LF,
-    ...cut(),
-])
+    selectJustification('centered'),
+    selectCharacterSize(2, 2),
+    bold(), text('Shopping list'), bold(false), LF,
+    selectCharacterSize(1, 1),
+    LF,
+    text('This is a test file'),
+    printAndFeedLines(10),
+    cut(),
+].flat())
 
-const printer = new EscPosUSB(vendor, product)
+const printer = new EscPosUSB()
 
 printer.open()
-
 printer.write(buffer)

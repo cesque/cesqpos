@@ -6,7 +6,7 @@ export default class EscPosUSB {
     device?: Device = undefined
     endpoint?: Endpoint = undefined
 
-    constructor(vid: number, pid: number) {
+    constructor(vid?: number, pid?: number) {
         const tm88iv = {
             vendor: 0x4b8,
             product: 0x202

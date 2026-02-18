@@ -7,18 +7,16 @@
         "resolveJsonModule": true,
         "moduleDetection": "force",
         "isolatedModules": true,
-
         "strict": true,
         "noUncheckedIndexedAccess": true,
-
         "module": "NodeNext",
         "outDir": "dist",
         "sourceMap": true,
         "verbatimModuleSyntax": true,
-
         "declaration": true,
-        "lib": ["ES2022"],
-
+        "lib": [
+            "ES2022"
+        ],
     },
     "exclude": [
         "./dist/**/*",
